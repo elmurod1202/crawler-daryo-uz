@@ -21,7 +21,7 @@ Assuming that you already have Python already, it is necessary to install Scrapy
 # Install the scrapy first
 $ pip install scrapy
 ```
-# You can Either use this repo as a project as it is, or start a new web scraping project with scrapy as follows:
+Now, you can Either use this repo as a project as it is, or start a new web scraping project with scrapy as follows:
 *NOTE: you don't need to start a new project if you are planning to use/edit this repo.*
 ```bash
 $ scrapy startproject mDaryoUz
@@ -111,9 +111,7 @@ When spider finishes crawling, article_links.json file should look like this:
 {"article_url": "https://m.daryo.uz/2021/03/09/ozbekiston-kasaba-uyushmalari-federatsiyasi-rahbari-fermerlar-kengashi-raisi-orinbosarini-prezidentni-aldayotganlikda-aybladi/"},
 {"article_url": "https://m.daryo.uz/2021/03/09/bekajonlar-uchun-tavsiya-vanna-tozalashning-gayrioddiy-ammo-eng-qulay-usuli/"},
 {"article_url": "https://m.daryo.uz/2021/03/09/key-liga-rustam-ashurmatov-jamoasi-songgi-daqiqalarda-2-ta-gol-otkazib-galabani-boy-berdi/"},
-.
-.
-.
+...
 ]
 ```
 
@@ -178,10 +176,8 @@ You can see below the content of the JSON file that the spider produced.
 {"article_title": ["Hyundai Ioniq 5 elektrokari oldindan buyurtmalar borasidagi rekordni yangiladi"], "article_category": ["Avto"], "article_metadata": ["19:48 Kecha  //  13867"], "article_body": " Hyundai Ioniq 5\u2019ning taqdimotidan bir ne...."},
 {"article_title": ["O\u2018zbekiston kasaba uyushmalari federatsiyasi rahbari Fermerlar kengashi raisi o\u2018rinbosarini Prezidentni aldayotganlikda aybladi"], "article_category": ["Mahalliy"], "article_metadata": ["19:39 Kecha  //  28056"],"...."},
 {"article_title": ["Bekajonlar uchun tavsiya: vanna tozalashning g\u2018ayrioddiy, ammo eng qulay usuli"], "article_category": ["Maslahatlar"], "article_metadata": ["19:26 Kecha  //  19140"], "article_body": " Ushbu noodatiy usul egilishi qiyi...."},
-.
-.
-.
+...
 ]
 ```
 
-That's it.
+That's it. Enjoy the news corpus.
