@@ -1,6 +1,6 @@
-# Web Scraping: Extracting the Raw Text Data from the WEB
+# Crawler - Daryo.uz: Extracting the Raw Text Data from the WEB
 
-Daryo Crawler is a website crawler that uses [Scrapy](https://scrapy.org/) framework.
+Daryo.UZ Crawler is a website crawler that uses [Scrapy](https://scrapy.org/) framework.
 Initially I wanted to collect some text data from news websites in Uzbek language for NER annotation. 
 So I set this up to collect all news articles from daryo.uz (used its mobile version: m.daryo.uz for simplicity) website in case I need more text data in the future.
 
@@ -20,9 +20,10 @@ Assuming that you already have Python already, it is necessary to install Scrapy
 ```bash
 # Install the scrapy first
 $ pip install scrapy
-
+```
 # You can Either use this repo as a project as it is, or start a new web scraping project with scrapy as follows:
 *NOTE: you don't need to start a new project if you are planning to use/edit this repo.*
+```bash
 $ scrapy startproject mDaryoUz
 $ cd mDaryoUz
 mDaryoUz $ scrapy genspider articles m.daryo.uz
