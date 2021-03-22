@@ -3,12 +3,30 @@
 # Simplifies it by assigning strings to elements instead of lists
 # Adds each line an id element to keep them identical for later referrals.
 # Adds the article title as the first sentence of the article actual text(body). Useful for future annotations.
+# Cleans the article from common repititions.
 # Recategorizes them, English equivalents, also merging some small ones into their bigger ancestor.
 
 
 import json
 from collections import Counter
 import re
+
+def clean_article(article):
+    #  "Mavzu" repititiion:
+    article = article.replace(" Mavzuga doir:","")
+    article = article.replace(" Mavzuga doir :","")
+
+    #  "Sport" repititiion:
+    article = article.replace("Yanada ko\u2018proq futbol va sport yangiliklaridan boxabar bo\u2018lishni istasangiz, \u201cDaryo\u201dning Telegram\u2019dagi rasmiy sport kanali \u2014  @daryo_sport \u2019ga obuna bo\u2018ling!","")
+    article = article.replace("Yanada ko‘proq futbol va sport yangiliklaridan boxabar bo‘lishni istasangiz, “Daryo”ning Telegram’dagi rasmiy sport kanali —  @Daryo_Sport24 ’ga obuna bo‘ling!","")
+
+    #  "Reklama" repititiion:
+    article = article.replace("Reklama huquqi asosida","")
+
+    #  "Instagram" repititiion:
+    article = article.replace(" \n\t\t   \n\t\t\t  \n\t\t\t  \n\t\t\t\t \n\t\t\t\t \n\t\t\t  \n\t\t   \n\t\t   \n\t\t   \n\t\t\t  \n\t\t\t\t \n\t\t\t\t    \n\t\t\t\t\t   \n\t\t\t\t\t\t  \n\t\t\t\t\t   \n\t\t\t\t    \n\t\t\t\t \n\t\t\t  \n\t\t   \n\t\t   \n\t\t\t   View this post on Instagram \n\t\t   \n\t\t   \n\t\t   \n\t\t\t  \n\t\t\t\t \n\t\t\t\t \n\t\t\t\t \n\t\t\t  \n\t\t\t  \n\t\t\t\t \n\t\t\t\t \n\t\t\t  \n\t\t\t  \n\t\t\t\t \n\t\t\t\t \n\t\t\t\t \n\t\t\t  \n\t\t   \n\t\t   \n\t\t\t  \n\t\t\t  \n\t\t   \n\t   ","")
+
+    return article
 
 # Count of Categories before recategorization:
 # {'Mahalliy': 70312, 'Dunyo': 58469, 'Sport': 27415, 'Texnologiyalar': 6000, 'Avto': 5080, 'Madaniyat': 4359, 'Qo‘ziqorin': 3854, 'Foto': 3167, 'Shou-biznes': 1702, 'Kino': 1607, 'Ilm-fan': 1092, 'Gadjetlar': 1071, 'Maslahatlar': 1035, 'Salomatlik': 857, 'Koinot': 766, 'Retseptlar': 545, 'Musiqa': 346, 'Moda': 320, 'Go‘zallik': 278, 'Kitob': 248, 'Media': 186, 'San’at': 161, 'Osiyo kubogi-2015': 140, 'Lifestyle': 124, 'Farzand': 107, 'Reklama': 105, 'Ingliz tilini o‘rganamiz!': 58, 'Karyera': 57, 'Teatr': 57, 'Mehridaryo': 48, 'Kolumnistlar': 44, 'Arxitektura': 44, 'Startaplar': 42, 'Retseptlar Yangi Yil': 22, 'Abituriyent': 20, 'None': 18, 'Sog‘lom turmush': 12, 'Intervyu': 11, 'Yangi yil': 7, 'Futzal JCh—2016': 7, 'Dasturxon': 7, 'Prezident saylovi—2016': 6, 'Дунё': 2, 'Yevro—2016': 2, 'U-23 Qatar—2016': 2, 'Sayohat': 1, 'Абитуриент': 1}
@@ -104,6 +122,8 @@ with open('data/article_body.json') as json_file:
         p['article_category'] = article_category
         print("Article #", article_id, ": ", article_title)
 
+        # Cleaning the article:
+        article_body = clean_article(article_body)
         #Category Count
         category_counter.update([article_category])
 

@@ -181,7 +181,7 @@ You can see below the content of the JSON file that the spider produced.
 ```
 
 ### Rearranging collected data:
-You can reorganize the obtained data as you need. In my case, I made the json format simpler, added an ID element to each news article, recategorized them and also saved all texts in a single text file.
+You can reorganize the obtained data as you need. In my case, I made the json format simpler, added an ID element to each news article, recategorized them, removed repeated phrases (Instagram, Mavzuga oid,..) and also saved all texts in a single text file.
 You can use *article_add_ids.py* for that:
 ```bash
 python article_add_ids.py
