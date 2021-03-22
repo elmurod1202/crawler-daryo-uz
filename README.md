@@ -186,3 +186,9 @@ You can use *article_add_ids.py* for that:
 ```bash
 python article_add_ids.py
 ```
+### Creating JSONL file:
+I had to obtain articles in JSONL(JSON Lines) format for my task, and also I needed to cut only 30 newest articles from each category.
+*json2jsonl.py* used for that:
+```bash
+python json2jsonl.py
+```
