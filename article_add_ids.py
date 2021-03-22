@@ -3,7 +3,7 @@
 # Simplifies it by assigning strings to elements instead of lists
 # Adds each line an id element to keep them identical for later referrals.
 # Adds the article title as the first sentence of the article actual text(body). Useful for future annotations.
-# Cleans the article from common repititions.
+# Cleans the article from common repititions and multiple spaces.
 # Recategorizes them, English equivalents, also merging some small ones into their bigger ancestor.
 
 
@@ -11,14 +11,25 @@ import json
 from collections import Counter
 import re
 
+FOLLOW_REPITITION = Counter()
+
 def clean_article(article):
+    global FOLLOW_REPITITION
+
+    #  "Follow on Telegram" repititiion:
+    for repetition in re.findall("Yanada ko.proq.*bo.ling", article):
+        article = article.replace(repetition,"")
+        FOLLOW_REPITITION.update([repetition])
+    for repetition in re.findall("Diqqat..diqqat.*Daryo.*Telegram.*lishingiz mumkin.", article):
+        article = article.replace(repetition,"")
+        FOLLOW_REPITITION.update([repetition])
+    for repetition in re.findall("\“Daryo\”ning Telegram’dagi rasmiy kanali — @toshqindaryo’ga a’zo bo‘ling!", article):
+        article = article.replace(repetition,"")
+        FOLLOW_REPITITION.update([repetition])
+
     #  "Mavzu" repititiion:
     article = article.replace(" Mavzuga doir:","")
     article = article.replace(" Mavzuga doir :","")
-
-    #  "Sport" repititiion:
-    article = article.replace("Yanada ko\u2018proq futbol va sport yangiliklaridan boxabar bo\u2018lishni istasangiz, \u201cDaryo\u201dning Telegram\u2019dagi rasmiy sport kanali \u2014  @daryo_sport \u2019ga obuna bo\u2018ling!","")
-    article = article.replace("Yanada ko‘proq futbol va sport yangiliklaridan boxabar bo‘lishni istasangiz, “Daryo”ning Telegram’dagi rasmiy sport kanali —  @Daryo_Sport24 ’ga obuna bo‘ling!","")
 
     #  "Reklama" repititiion:
     article = article.replace("Reklama huquqi asosida","")
@@ -26,6 +37,15 @@ def clean_article(article):
     #  "Instagram" repititiion:
     article = article.replace(" \n\t\t   \n\t\t\t  \n\t\t\t  \n\t\t\t\t \n\t\t\t\t \n\t\t\t  \n\t\t   \n\t\t   \n\t\t   \n\t\t\t  \n\t\t\t\t \n\t\t\t\t    \n\t\t\t\t\t   \n\t\t\t\t\t\t  \n\t\t\t\t\t   \n\t\t\t\t    \n\t\t\t\t \n\t\t\t  \n\t\t   \n\t\t   \n\t\t\t   View this post on Instagram \n\t\t   \n\t\t   \n\t\t   \n\t\t\t  \n\t\t\t\t \n\t\t\t\t \n\t\t\t\t \n\t\t\t  \n\t\t\t  \n\t\t\t\t \n\t\t\t\t \n\t\t\t  \n\t\t\t  \n\t\t\t\t \n\t\t\t\t \n\t\t\t\t \n\t\t\t  \n\t\t   \n\t\t   \n\t\t\t  \n\t\t\t  \n\t\t   \n\t   ","")
 
+    #  "Foto" repititiion:
+    article = article.replace(" (foto)","")
+
+    #  "Video" repititiion:
+    article = article.replace(" (video)","")
+
+    #  Multiple whitespaces into one:
+    article = ' '.join(article.split())
+    
     return article
 
 # Count of Categories before recategorization:
@@ -145,3 +165,10 @@ with open('data/article_body.json') as json_file:
     print("Categories count:")
     print(category_counter)
     print("Total number of (possible) sentences: ", count_sentences)
+
+    # Follow repetition
+    # print(FOLLOW_REPITITION)
+    with open('data/follow_repetition.txt', 'w') as repfile:
+        repfile.write(json.dumps(FOLLOW_REPITITION, indent=0))
+    repfile.close()
+    print("Follow repetition has been saved as data/follow_repetition.txt")
