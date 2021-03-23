@@ -38,10 +38,12 @@ def clean_article(article):
     article = article.replace(" \n\t\t   \n\t\t\t  \n\t\t\t  \n\t\t\t\t \n\t\t\t\t \n\t\t\t  \n\t\t   \n\t\t   \n\t\t   \n\t\t\t  \n\t\t\t\t \n\t\t\t\t    \n\t\t\t\t\t   \n\t\t\t\t\t\t  \n\t\t\t\t\t   \n\t\t\t\t    \n\t\t\t\t \n\t\t\t  \n\t\t   \n\t\t   \n\t\t\t   View this post on Instagram \n\t\t   \n\t\t   \n\t\t   \n\t\t\t  \n\t\t\t\t \n\t\t\t\t \n\t\t\t\t \n\t\t\t  \n\t\t\t  \n\t\t\t\t \n\t\t\t\t \n\t\t\t  \n\t\t\t  \n\t\t\t\t \n\t\t\t\t \n\t\t\t\t \n\t\t\t  \n\t\t   \n\t\t   \n\t\t\t  \n\t\t\t  \n\t\t   \n\t   ","")
 
     #  "Foto" repititiion:
-    article = article.replace(" (foto)","")
+    article = article.replace("(foto)","")
+    article = article.replace("(Foto)","")
 
     #  "Video" repititiion:
-    article = article.replace(" (video)","")
+    article = article.replace("(video)","")
+    article = article.replace("(Video)","")
 
     #  Multiple whitespaces into one:
     article = ' '.join(article.split())
@@ -142,13 +144,16 @@ with open('data/article_body.json') as json_file:
         p['article_category'] = article_category
         print("Article #", article_id, ": ", article_title)
 
-        # Cleaning the article:
-        article_body = clean_article(article_body)
-        #Category Count
-        category_counter.update([article_category])
-
         # Title as a part of the body
         article_body = article_title + ". " + article_body
+        
+        # Cleaning the article:
+        article_body = clean_article(article_body)
+        
+        #Category Count
+        category_counter.update([article_category])
+        
+        # Put it back:
         p['article_body'] = article_body
 
         #Sentence Count

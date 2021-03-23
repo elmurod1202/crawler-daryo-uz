@@ -1,6 +1,8 @@
 # json2multiple_texts.py
 # Reads news articles from reorganized(and cleaned) JSON file
-# Saves each article in a separate text file.
+# Saves each 100 article in a separate text file.
+# I could've saved each articlea as a separate text file, 
+# but they are too small and one folder qould have hundreds of thousands of files, making it hard to work with them.
 
 
 import json
@@ -11,22 +13,21 @@ import re
 with open('data/article_body_new.json') as json_file:
     print("Loading JSON file")
     data = json.load(json_file)
-    outfile = open('data/output.jsonl', 'w')
-    # Running through each article in the JSON file:
-    categories = {'Local': 0, 'World': 0, 'Sport': 0, 'Tech': 0, 'Misc': 0, 'Media': 0, 'Culture': 0, 'Science': 0, 'Health': 0, 'Food': 0}
-    for p in data:
-        # Loading elements:
-        article_id = p['article_id']
-        article_body = p['article_body']
-        article_category = p['article_category']
-        if(categories[article_category] < NUM_ARTICLES_PER_CATEGORY):
-            categories[article_category]+=1
-            print("Article #", article_id, "Category: ", article_category)
-            entry = {"text":article_body,"meta":{"source":"Daryo.uz","category":article_category,"article_id":article_id}}
-            json.dump(entry, outfile)
-            outfile.write('\n')
-        else:
-            print("Skipping...")
-
-    outfile.close()
-    print("New JSONL file saved.")
+    # Running through every 100 article in the JSON file:
+    chunks = [data[x:x+100] for x in range(0, len(data), 100)]
+    count_chunk = 0
+    for chunk in chunks:
+        article_file_name = "Article_"+str(count_chunk).zfill(6)+".txt"
+        article_file = open('data/daryo_multiple_files/'+article_file_name,"w")
+        for p in chunk:
+            # Loading elements:
+            # article_id = p['article_id']
+            article_body = p['article_body']
+            # article_category = p['article_category']
+            article_file.write(article_body)
+            article_file.write("\n")
+        print("Saved: ", article_file_name)
+        article_file.close()
+        count_chunk+=100
+        
+print("Files saved.")
