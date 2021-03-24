@@ -186,14 +186,14 @@ You can use *article_add_ids.py* for that:
 ```bash
 python article_add_ids.py
 ```
-Right after that you can also use *json2multiple_texts.py* to save each 100 article in a separate text file. (I needed it to train BERT LM)
+Right after that you can also use *json2multiple_texts.py* to save each 500 article in a separate text file. (I needed it to train BERT LM)
 ```bash
 python json2multiple_texts.py
 ```
 
 ### Creating JSONL file:
-I had to obtain articles in JSONL(JSON Lines) format for my task, and also I needed to cut only 30 newest articles from each category.
-*json2jsonl.py* used for that:
+I had to obtain articles in JSONL(JSON Lines) format for my annotation task, and also I needed to cut only 30 newest articles from each category.
+*json2jsonl.py* used for that (This code also splits articles into sentences using nltk):
 ```bash
 python json2jsonl.py
 ```

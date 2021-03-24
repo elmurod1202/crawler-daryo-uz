@@ -2,6 +2,14 @@
 # Reads news articles from reorganized JSON file
 # Creates new JSONL file out of that JSON data
 # Cuts NUM_ARTICLES_PER_CATEGORY number of articles from top of each category.
+# Splits article into sentences.
+
+# import nltk.data
+
+# tokenizer = nltk.data.load('tokenizers/punkt/english.pickle')
+# fp = open("test.txt")
+# data = fp.read()
+# print '\n-----\n'.join(tokenizer.tokenize(data))
 
 import json
 # import jsonlines
