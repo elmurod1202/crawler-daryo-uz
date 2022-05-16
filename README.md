@@ -1,5 +1,9 @@
 # Crawler - Daryo.uz: Extracting the Raw Text Data from the WEB
 
+<div align="center">
+    <img src="https://github.com/elmurod1202/crawler-daryo-uz/blob/master/Daryo_Web_Crawler.png?raw=true" width = "600" Alt = "Logo">
+</div>
+
 Daryo.UZ Crawler is a website crawler that uses [Scrapy](https://scrapy.org/) framework to crawl news data from a popular news website [Daryo.uz](https://daryo.uz/).
 The initial intention behind the creation of this tool was to collect some text data from news websites in Uzbek language for NER annotation. 
 So it was set up to collect all news articles from daryo.uz (used its mobile version: m.daryo.uz for simplicity) website.

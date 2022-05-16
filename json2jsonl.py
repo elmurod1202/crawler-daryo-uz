@@ -1,8 +1,8 @@
 # json2jsonl.py
 # Reads news articles from reorganized JSON file
-# Creates new JSONL file out of that JSON data
-# Cuts NUM_ARTICLES_PER_CATEGORY number of articles from top of each category.
-# Saves the rest of the articles in a new json file.
+# Cuts $NUM_ARTICLES_PER_CATEGORY number of articles from top of each category.
+# Separates those chosen articles from the corpus, saving them in different files.
+
 
 # Splits and saves chosen articles into sentences.
 # import nltk.data
@@ -26,6 +26,7 @@ with open('data/article_body_new.json') as json_file:
     print("Loading JSON file")
     data = json.load(json_file)
     outfile = open('data/output.jsonl', 'w')
+    corpus_text = open('data/corpus_daryo_reduced.txt', 'w')
     # Running through each article in the JSON file:
     categories = {'Local': 0, 'World': 0, 'Sport': 0, 'Tech': 0, 'Misc': 0, 'Media': 0, 'Culture': 0, 'Science': 0, 'Health': 0, 'Food': 0}
     chosen_article_ids = []
@@ -44,9 +45,12 @@ with open('data/article_body_new.json') as json_file:
             chosen_article_ids.append(article_id)
         else:
             article_body_new_rest.append(p)
+            corpus_text.write(article_body)
+            corpus_text.write("\n")
             print("Skipping...")
 
     outfile.close()
+    corpus_text.close()
     print("Total articles processed: ", len(data))
 
 # Saving ID of chosen articles to a json file: 
